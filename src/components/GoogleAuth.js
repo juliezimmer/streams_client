@@ -10,19 +10,53 @@ class GoogleAuth extends React.Component {
             clientId: '157633816826-v8uuqeqt0f7cj3g424g85m72fspm6lqk.apps.googleusercontent.com',
             scope: 'email' 
          }).then(() => {
+            // creates a reference for an instance of the auth object for the component class
             this.auth = window.gapi.auth2.getAuthInstance(); 
-            this.setState({ isSignedIn: this.auth.isSignedIn.get()});  
+            
+            // set the state with the current user's signin status
+           this.onAuthChange(); 
+            
+            // set up an event listener
+            this.auth.isSignedIn.listen(this.onAuthChange); // need to define this method, onAuthChange
          });
       });
+   }
+   // updates authentication state on the fly
+   onAuthChange = () => { 
+     this.setState({ isSignedIn: this.auth.isSignedIn.get()}); 
+   };
+
+   // will need to access the auth instance
+   onSignIn = () => {
+      this.auth.signIn();
+   }
+
+   // will need to access the auth instance
+   onSignOut = () => {
+      this.auth.signOut();
    }
 
    renderAuthButton(){
       if (this.state.isSignedIn === null) {
-         return <div>I don't know if we are signed in</div>;
-      } else if (this.state.isSignedIn){
-         return <div>I am signed in!</div>
+         return null;
+      } else if (this.state.isSignedIn){ // if the user IS signed in
+         return (
+            <button 
+               onClick={this.onSignOut} 
+               className="ui red google button">
+               <i className="google icon" />
+               Sign Out
+            </button>
+         );
       } else {
-         return <div>I am NOT signed in</div>
+         return (
+            <button 
+               onClick={this.onSignIn} 
+               className="ui red google button">
+               <i className="google icon" />
+               Sign In with Google
+            </button>
+         )
       }
    }
 
