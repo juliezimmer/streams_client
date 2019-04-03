@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux'; 
+import  { signIn, signOut } from '../actions';
 
 class GoogleAuth extends React.Component {
    state = { siSignedIn: null };
@@ -17,13 +19,18 @@ class GoogleAuth extends React.Component {
            this.onAuthChange(); 
             
             // set up an event listener
-            this.auth.isSignedIn.listen(this.onAuthChange); // need to define this method, onAuthChange
+            // this is called anytime the authentication status changes.
+            this.auth.isSignedIn.listen(this.onAuthChange); 
          });
       });
    }
    // updates authentication state on the fly
-   onAuthChange = () => { 
-     this.setState({ isSignedIn: this.auth.isSignedIn.get()}); 
+   onAuthChange = (isSignedIn) => { 
+      if (isSignedIn) {
+         this.props.signIn();
+      } else {
+         this.props.signOut();
+      }
    };
 
    // will need to access the auth instance
@@ -67,4 +74,7 @@ class GoogleAuth extends React.Component {
    }
 }
 
-export default GoogleAuth;
+// connect() takes in two arguments:
+//  1. null (there is no map state to props function)
+//  2. object containing signIn and signOut
+export default connect( null, { signIn, signOut })(GoogleAuth);
