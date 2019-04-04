@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import  { signIn, signOut } from '../actions';
 
 class GoogleAuth extends React.Component {
-   state = { siSignedIn: null };
+   
 
    componentDidMount(){
       window.gapi.load('client:auth2', () => {
@@ -13,10 +13,11 @@ class GoogleAuth extends React.Component {
             scope: 'email' 
          }).then(() => {
             // creates a reference for an instance of the auth object for the component class
+            // 'this.auth' is the auth instance 
             this.auth = window.gapi.auth2.getAuthInstance(); 
             
-            // set the state with the current user's signin status
-           this.onAuthChange(); 
+            // updates auth state in Redux store
+           this.onAuthChange(this.auth.isSignedIn.get()); 
             
             // set up an event listener
             // this is called anytime the authentication status changes.
@@ -43,13 +44,13 @@ class GoogleAuth extends React.Component {
       this.auth.signOut();
    }
 
-   renderAuthButton(){
-      if (this.state.isSignedIn === null) {
+   renderAuthButton(){ // the 'isSignedIn' property comes from props
+      if (this.props.isSignedIn === null) {
          return null;
-      } else if (this.state.isSignedInClick){ // if the user IS signed in
+      } else if (this.props.isSignedIn){ // if the user IS signed in
          return (
             <button 
-               onClick={this.onSignOut} 
+               onClick={this.onSignOutClick} 
                className="ui red google button">
                <i className="google icon" />
                Sign Out
@@ -74,7 +75,11 @@ class GoogleAuth extends React.Component {
    }
 }
 
+const mapStateToProps = (state) => {
+   return { isSignedin: state.auth.isSignedIn }
+}
+
 // connect() takes in two arguments:
 //  1. null (there is no map state to props function)
 //  2. object containing signIn and signOut
-export default connect( null, { signIn, signOut })(GoogleAuth);
+export default connect( mapStateToProps, { signIn, signOut })(GoogleAuth);
