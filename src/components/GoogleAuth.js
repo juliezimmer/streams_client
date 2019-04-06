@@ -4,7 +4,6 @@ import  { signIn, signOut } from '../actions';
 
 class GoogleAuth extends React.Component {
    
-
    componentDidMount(){
       window.gapi.load('client:auth2', () => {
          // callback function is only called AFTER client:auth2 library has been successfully loaded into gapi
@@ -81,6 +80,6 @@ const mapStateToProps = (state) => {
 }
 
 // connect() takes in two arguments:
-//  1. null (there is no map state to props function)
+//  1. mapStateToProps
 //  2. object containing signIn and signOut
 export default connect( mapStateToProps, { signIn, signOut })(GoogleAuth);
