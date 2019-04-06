@@ -14,21 +14,22 @@ class GoogleAuth extends React.Component {
          }).then(() => {
             // creates a reference for an instance of the auth object for the component class
             // 'this.auth' is the auth instance 
-            this.auth = window.gapi.auth2.getAuthInstance(); 
+               this.auth = window.gapi.auth2.getAuthInstance(); 
             
-            // updates auth state in Redux store
-           this.onAuthChange(this.auth.isSignedIn.get()); 
+               // updates auth state in Redux store
+               this.onAuthChange(this.auth.isSignedIn.get()); 
             
-            // set up an event listener
-            // this is called anytime the authentication status changes.
-            this.auth.isSignedIn.listen(this.onAuthChange); 
+               // set up an event listener
+               // this is called anytime the authentication status changes.
+               this.auth.isSignedIn.listen(this.onAuthChange); 
          });
       });
    }
+   
    // updates authentication state on the fly
-   onAuthChange = (isSignedIn) => { 
+   onAuthChange = isSignedIn => { 
       if (isSignedIn) {
-         this.props.signIn();
+         this.props.signIn(this.auth.currentUser.get().getId());
       } else {
          this.props.signOut();
       }
