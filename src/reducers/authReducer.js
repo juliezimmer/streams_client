@@ -1,5 +1,6 @@
 import { SIGN_IN, SIGN_OUT } from '../actions/types';
 
+// state initializer
 const INITIAL_STATE = {
    isSignedIn: null,
    userId: null // null indicates that there is no current userId

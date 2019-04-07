@@ -12,7 +12,7 @@ class GoogleAuth extends React.Component {
             scope: 'email' 
          }).then(() => {
             // creates a reference for an instance of the auth object for the component class
-            // 'this.auth' is the auth instance 
+            // 'this.auth' is the current auth instance 
                this.auth = window.gapi.auth2.getAuthInstance(); 
             
                // updates auth state in Redux store
