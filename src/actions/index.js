@@ -16,7 +16,7 @@ export const signOut = () => {
 
 // this is called with the values entered in the redux form in src/components/StreamCreate.js
 export const createStream = formValues => async dispatch => {
-
-}
+   streams.post('/streams', formValues);
+};
 
 
