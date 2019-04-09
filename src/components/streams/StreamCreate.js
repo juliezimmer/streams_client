@@ -1,5 +1,8 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { createStream } from '../../actions';
+
 class StreamCreate extends React.Component{
    renderError({error, touched}){
       if (touched && error){ // the user has clicked in the input field AND there is an error message
