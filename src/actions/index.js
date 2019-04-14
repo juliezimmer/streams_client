@@ -23,7 +23,7 @@ export const signOut = () => {
 };
 
 // this is called with the values entered in the redux form in src/components/StreamCreate.js
-export const createStream = formValues => async (dispatch, getState) => {
+export const createStream = formValues  => async (dispatch, getState) => {
    const { userId } = getState().auth;
    // the response to this request will contain the actual saved record of the stream that was just created.
    const response = await streams.post('/streams', {...formValues, userId });
@@ -31,6 +31,7 @@ export const createStream = formValues => async (dispatch, getState) => {
       type: CREATE_STREAM,
       payload: response.data
    });
+   // add the programmatic navigation of the user back to the list of streams (root route).
 };
 
 // arrow function that returns a thunk function
@@ -42,7 +43,6 @@ export const fetchStreams = () => async dispatch => {
       payload: response.data 
    });
 };
-
 
 export const fetchStream = (id) => async dispatch => {
    const response = await streams.get(`/streams/${id}`);
