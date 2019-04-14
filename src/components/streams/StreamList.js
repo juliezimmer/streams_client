@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
  
 class StreamList extends React.Component {
    componentDidMount () {
-      this.props.fetchStreams();
+      this.props.fetchStreams(); // this fetches all of the streams in the application when the app starts up.
    }
    
    // helper function for comparing the current userId to the userId on the streams.  When it's called, its passed the stream that is currently being iterated over. 

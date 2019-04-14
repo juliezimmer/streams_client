@@ -1,3 +1,3 @@
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 
-export default createHistory(); // this creates a history object that will be maintained by the programmer. It can be accessed anywhere inside the project.
+export default createBrowserHistory(); // this creates a history object that will be maintained by the programmer. It can be accessed anywhere inside the project.
