@@ -1,4 +1,6 @@
 import streams from '../apis/streams';
+import history from '../history';
+
 import { 
    SIGN_IN, 
    SIGN_OUT, 
@@ -31,7 +33,7 @@ export const createStream = formValues  => async (dispatch, getState) => {
       type: CREATE_STREAM,
       payload: response.data
    });
-   // add the programmatic navigation of the user back to the list of streams (root route).
+   history.push('/'); // list of streams; the root route.
 };
 
 // arrow function that returns a thunk function
