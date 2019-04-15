@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from '../Modal';
+import history from '../../history';
 
 const StreamDelete = () => {
    const actions = (// this is passed down as a prop to 'actions' in the Modal. <React.Fragment> takes the place of the mandatory first div for the buttons below. 
@@ -16,7 +17,7 @@ const StreamDelete = () => {
             title="Delete Stream"
             content="Are you sure you want to delete this stream?"
             actions={actions}
-
+            onDismiss={() => history.push('/')}
          />
       </div>
    );
