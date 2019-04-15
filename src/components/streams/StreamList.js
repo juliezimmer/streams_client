@@ -26,9 +26,7 @@ class StreamList extends React.Component {
          )
       }
    }
-   //renderAdmin() is called from inside renderList()
-
-
+  
    // This takes the list of streams and renders them to the screen.
    renderList() {
       return this.props.streams.map(stream => {
@@ -37,8 +35,12 @@ class StreamList extends React.Component {
                {this.renderAdmin(stream)}
                <i className="large middle aligned icon camera"></i>
                <div className="content">
-                  {stream.title}
-                  <div className="description">{stream.description}</div>
+                  <Link 
+                     to={`/streams/${stream.id}`}
+                     className="header" >
+                     {stream.title}
+                  </Link>
+               <div className="description">{stream.description}</div>
                </div>
             </div>
          );
