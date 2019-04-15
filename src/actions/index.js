@@ -33,7 +33,7 @@ export const createStream = formValues  => async (dispatch, getState) => {
       type: CREATE_STREAM,
       payload: response.data
    });
-   history.push('/'); // list of streams; the root route.
+   history.push('/'); // list of streams; the root route. This also forcibly navigaties the user back to the Streamer page
 };
 
 // arrow function that returns a thunk function
@@ -50,17 +50,17 @@ export const fetchStream = (id) => async dispatch => {
    const response = await streams.get(`/streams/${id}`);
    dispatch({
        type: FETCH_STREAM,
-       payload: response.data
+       payload: response.data 
    });
 }
 
-// the formValues contain the edits that will be made to the stream.
 export const editStream = (id, formValues) => async dispatch => {
-   const response = await streams.put(`/streams/${id}`, formValues);
+   const response = await streams.patch(`/streams/${id}`, formValues);
    dispatch({
       type: EDIT_STREAM,
       payload: response.data
    });
+   history.push('/'); // forcibly navigates the user back to the root route.
 };
 
 export const deleteStream = (id) => async dispatch => {
